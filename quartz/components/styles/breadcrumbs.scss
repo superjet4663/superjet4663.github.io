@@ -1,0 +1,54 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixin.scss" as *;
+
+.breadcrumb-container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  gap: 0.25rem;
+  font-weight: 300;
+  font-style: italic;
+
+  @media all and ($mobile) {
+    .breadcrumb-element {
+      display: none;
+
+      // Show first item
+      &:first-child,
+      &:last-child {
+        display: flex;
+      }
+    }
+  }
+}
+
+.breadcrumb-element {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  & > a {
+    text-decoration: none;
+
+    &:hover {
+      background-image: linear-gradient(
+        var(--link-underline-gradient-line-color),
+        var(--link-underline-gradient-line-color)
+      );
+      background-size: 1px 1px;
+      background-repeat: repeat-x;
+      background-position: 0% calc(100% - 0.1em);
+    }
+  }
+
+  p {
+    margin: 0;
+    margin-left: 0.25rem;
+    padding: 0;
+    line-height: normal;
+  }
+}

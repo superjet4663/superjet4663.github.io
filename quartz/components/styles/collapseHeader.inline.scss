@@ -1,0 +1,151 @@
+.collapsible-header {
+  --translate-position: 0px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    --translate-position: 3px;
+  }
+
+  h4,
+  h5,
+  h6 {
+    --translate-position: 4px;
+  }
+
+  ol,
+  ul {
+    & > li {
+      list-style-type: "✦";
+      padding-left: 0.5em;
+    }
+  }
+
+  &:first-child {
+    margin-top: 1rem;
+  }
+
+  &:last-child {
+    margin-bottom: 1rem;
+  }
+
+  // Indentation based on header level
+  &[data-level="2"] {
+    margin-left: 1rem;
+  }
+  &[data-level="3"] {
+    margin-left: 1.5rem;
+  }
+  &[data-level="4"] {
+    margin-left: 1.9rem;
+  }
+  &[data-level="5"] {
+    margin-left: 2.2rem;
+  }
+  &[data-level="6"] {
+    margin-left: 2.4rem;
+  }
+
+  & .collapsed-dots {
+    display: none;
+    transform: translateY(var(--translate-position));
+  }
+
+  &.collapsed {
+    & .collapsed-dots {
+      display: block;
+    }
+  }
+
+  & .toggle-button {
+    background-color: transparent;
+    text-align: left;
+    padding: 0;
+    color: var(--dark);
+    display: inline-flex;
+    align-items: center;
+    transform: translateY(var(--translate-position));
+
+    &:hover {
+      .circle-icon {
+        display: none;
+      }
+
+      &[aria-expanded="true"] {
+        .collapse-icon {
+          display: block;
+        }
+        .expand-icon {
+          display: none;
+        }
+      }
+
+      &[aria-expanded="false"] {
+        .expand-icon {
+          display: block;
+        }
+        .collapse-icon {
+          display: none;
+        }
+      }
+    }
+  }
+
+  & .toggle-icons {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .circle-icon,
+    .expand-icon,
+    .collapse-icon {
+      opacity: 0.85;
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    // Default state shows circle
+    .circle-icon {
+      display: block;
+    }
+    .expand-icon,
+    .collapse-icon {
+      display: none;
+    }
+  }
+
+  &.collapsed {
+    :where(h1, h2, h3, h4, h5, h6):not(.popover *) {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 3px;
+    }
+  }
+
+  // Content styles
+  .collapsible-header-content-outer {
+    --padding-width: 8px;
+
+    padding-left: var(--padding-width);
+    position: relative;
+
+    .collapsible-header-content {
+      border-left: 1px solid var(--lightgray);
+      padding-left: var(--padding-width);
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      blockquote {
+        &:first-child {
+          margin-top: 0 !important;
+        }
+      }
+
+      &.collapsed {
+        overflow: hidden;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+}

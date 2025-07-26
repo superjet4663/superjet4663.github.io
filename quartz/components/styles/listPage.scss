@@ -1,0 +1,160 @@
+@use "../../styles/variables.scss" as *;
+@use "../../styles/mixin.scss" as *;
+
+ul.section-ul {
+  list-style: none;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+li.section-li {
+  border-top: 1px solid;
+  padding: calc(var(--kern) * 1.5) 4px;
+  padding-left: 0px;
+  transition: border-color 0.3s;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  &:hover {
+    background: var(--lightgray);
+  }
+
+  &.fade-out + &.fade-out {
+    border-top-color: var(--gray-200);
+  }
+
+  &.fade-out {
+    & > .note-link {
+      color: var(--gray-200);
+    }
+
+    & .tag-highlights {
+      color: var(--gray-200);
+
+      li {
+        color: var(--gray-200);
+
+        &::after {
+          border-color: var(--gray-200);
+        }
+      }
+    }
+  }
+
+  .note-link {
+    display: block;
+    text-decoration: none;
+    transform: translateY(calc(var(--align-baseline) * -1));
+    transition: color 0.3s;
+    font-weight: $normalWeight;
+    color: inherit;
+
+    &::before {
+      content: "";
+      display: block;
+      height: 0;
+      margin-top: calc(var(--align-cap-height) + var(--align-baseline));
+    }
+
+    --grid-multiplier: 8;
+
+    & > .note-grid {
+      column-gap: calc(var(--kern) * 2.5);
+      display: grid;
+      grid-template-columns: calc(var(--kern) * var(--grid-multiplier)) 1fr;
+      align-items: baseline;
+
+      @media all and ($desktop) {
+        &:has(.tag-highlights):not(.stacked-content *):not(.popover *) {
+          grid-template-columns:
+            calc(var(--kern) * var(--grid-multiplier)) calc(var(--kern) * 30)
+            1fr;
+        }
+      }
+
+      & > .tag-highlights {
+        display: flex;
+        transition: color 0.3s;
+        gap: calc(var(--kern) * 1);
+        flex-direction: row;
+        margin-block: 0;
+        padding-inline: 0;
+        list-style: none;
+        justify-content: flex-end;
+        padding-right: 0;
+        vertical-align: 0.15em;
+
+        .popover &,
+        .stacked-content & {
+          display: none;
+        }
+
+        @media all and ($tablet) {
+          display: none;
+        }
+
+        li {
+          transform-origin: center left;
+          padding: 0 0.7em;
+          position: relative;
+
+          @include tinyFonts;
+          font-family: var(--codeFont);
+
+          &::after {
+            content: "";
+            border: 1px solid;
+            border-radius: 0;
+            transition: border-color 0.3s;
+            inset: 0 0 -0.12em;
+            pointer-events: none;
+            position: absolute;
+          }
+        }
+      }
+
+      & > .meta {
+        --align-cap-height: -3.5px;
+        --align-baseline: -3.5px;
+        font-family: var(--codeFont);
+        @include tinyFonts;
+      }
+    }
+  }
+}
+
+.notes-list {
+  padding-right: calc(var(--kern) * 2);
+
+  .popover-inner & {
+    padding-right: 0;
+    grid-column: -3/3;
+  }
+}
+
+@media all and ($mobile) {
+  .notes-list {
+    padding-right: 0;
+  }
+
+  .tag-highlights,
+  .notes-evergreen {
+    display: none !important;
+  }
+}
+
+.notes-evergreen {
+  grid-column: 9/-3;
+  display: flex;
+  flex-direction: column;
+  padding-left: calc(var(--kern) * 2);
+  justify-content: space-between;
+
+  h2 {
+    @include tinyFonts;
+    font-size: 14px;
+  }
+}

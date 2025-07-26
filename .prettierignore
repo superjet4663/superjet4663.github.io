@@ -1,0 +1,10 @@
+public
+node_modules
+.quartz-cache
+.mypy_cache
+# content
+.venv
+safari.css
+*.pdf
+pnpm-lock.yaml
+flake.lock
