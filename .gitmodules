@@ -1,0 +1,3 @@
+[submodule "content"]
+	path = content
+	url = https://github.com/superjet4663/content.git
